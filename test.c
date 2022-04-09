@@ -32,7 +32,7 @@ int main(int argc, char* argv[], char *envp[])
     // fd[0] - read
     // fd[1] - write
     int i = 0;
-
+    printf("%d", argc);
     while (i < 4)
     {
         printf("%s\n", envp[i]);
