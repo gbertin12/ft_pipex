@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:06:46 by gbertin           #+#    #+#             */
-/*   Updated: 2022/04/10 11:35:51 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/04/10 15:21:30 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ char	*ft_get_path(t_list pipex)
 		path = ft_strjoin(tmp, pipex.args[0]);
 		free(tmp);
 		if (access(path, 0) == 0)
-		{
-			printf("path : %s\n", path);
 			return (path);
-		}
 		free(path);
 		i++;
 	}
@@ -41,11 +38,13 @@ char	*ft_get_path(t_list pipex)
 void ft_exec_first(t_list pipex, char *argv[], char *envp[])
 {
 	pipex.args = ft_split(argv[2], ' ');
-	dup2(pipex.inputfile, STDOUT_FILENO);
+	dup2(pipex.fd[1], 1);
 	close(pipex.fd[0]);
+	dup2(pipex.inputfile, 0);
 	pipex.path = ft_get_path(pipex);
 	if(pipex.path != NULL)
 	{
+		
 		execve(pipex.path, pipex.args, envp);
 	}
 	else
@@ -59,8 +58,9 @@ void ft_exec_first(t_list pipex, char *argv[], char *envp[])
 void ft_exec_second(t_list pipex, char *argv[], char *envp[])
 {
 	pipex.args = ft_split(argv[3], ' ');
-	dup2(pipex.fd[0], STDIN_FILENO);
+	dup2(pipex.fd[0], 0);
 	close(pipex.fd[1]);
+	dup2(pipex.outputfile, 1);
 	pipex.path = ft_get_path(pipex);
 	if(pipex.path != NULL)
 	{
@@ -129,6 +129,8 @@ int	main(int argc, char* argv[], char *envp[])
 		
 		close(pipex.fd[0]);
 		close(pipex.fd[1]);
+		// close(pipex.inputfile);
+		// close(pipex.outputfile);
 		waitpid(pipex.pid1, NULL, 0);
 		waitpid(pipex.pid2, NULL, 0);
 	}
