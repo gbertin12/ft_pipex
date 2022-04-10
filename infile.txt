@@ -1,5 +1,4 @@
-salut 
-c'est 
+:c'est 
 cool
 salut
 bisous

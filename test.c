@@ -4,58 +4,48 @@
 #include <sys/types.h>
 #include <errno.h>
 
-void fork_1()
-{
-    pid_t pid;
-    pid = fork();
+#include "includes/pipex.h"
 
-    if (pid == 0)
-        printf("Done son my pid = %d\n", getpid());
-    else
-        printf("Done father my pid = %d\n", getpid());
-}
-void fork_2()
+char **ft_fill_path_env(t_list pipex, char *env[])
 {
-    pid_t pid;
-    pid = fork();
-    if (pid == 0)
-        printf("222 Done son my pid = %d\n", getpid());
-    else
-        printf("222 Done father my pid = %d\n", getpid());
+	char *path;
+	char **all_path;
+	int i;
+	
+	i = 0;
+	path = "PATH";
+	while (env[i])
+	{
+		if (ft_strncmp(path, env[i], 4) == 0)
+		{
+			while (*env[i] != '/' && *env[i] != '\0')
+				env[i]++;
+			all_path = ft_split(env[i], ':');
+            	return (all_path);
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 int main(int argc, char* argv[], char *envp[])
 {
-    // int i = 0;
-    // int fd[2];
-    // pid_t pid;
-    // fd[0] - read
-    // fd[1] - write
-    int i = 0;
-    printf("%d", argc);
-    while (i < 4)
-    {
-        printf("%s\n", envp[i]);
-        i++;
-    }
-    // while(i < 4)
-    // {
-    //     pipe(fd);
-    //     pid = fork();
-    //     if (pid == 0)
-    //     {
-    //         printf("%d Done son my pid = %d\n", i, getpid());
-    //         close(fd[1]);
-    //         close(fd[0]);
-    //     }
-    //     else
-    //     {
-    //         printf("%d Done father my pid = %d\n", i, getpid());
-    //         close(fd[0]);
-    //         close(fd[1]);
-    //     }
-    //     i++;
-    // }
+    int i;
+    t_list pipex;
+    
+    i = 0;
+    pipex.path_absolute = ft_fill_path_env(pipex, envp);
+	while (pipex.path_absolute[i] != NULL)
+	{
+		printf("\n%s", pipex.path_absolute[i]);
+		i++;
+	}
+	
+//    while (pipex.path_absolute[i])
+//    {
+//        printf("%s\n", pipex.path_absolute[i]);
+//        i++;
+//    }
 }
 
 

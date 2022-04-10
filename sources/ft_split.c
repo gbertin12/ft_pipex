@@ -6,13 +6,13 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:10:02 by gbertin           #+#    #+#             */
-/*   Updated: 2022/03/09 14:12:03 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/04/10 10:49:57 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/pipex.h"
 
-static void	*ft_memalloc(size_t size)
+void	*ft_memalloc(size_t size)
 {
 	void	*new_memory;
 

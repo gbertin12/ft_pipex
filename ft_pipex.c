@@ -6,41 +6,97 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:06:46 by gbertin           #+#    #+#             */
-/*   Updated: 2022/04/09 21:44:08 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/04/10 11:35:51 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/pipex.h"
 
-void ft_exec_first(t_list pipex, *argv[], char *envp[])
+char	*ft_get_path(t_list pipex)
+{
+	int i;
+	char *tmp;
+	char *path;
+
+	i = 0;
+	if (pipex.path_absolute[0] == NULL)
+		return (NULL);
+	while (pipex.path_absolute[i] != NULL)
+	{
+		tmp = ft_strjoin(pipex.path_absolute[i], "/");
+		path = ft_strjoin(tmp, pipex.args[0]);
+		free(tmp);
+		if (access(path, 0) == 0)
+		{
+			printf("path : %s\n", path);
+			return (path);
+		}
+		free(path);
+		i++;
+	}
+	printf("failure");
+	return (NULL);
+}
+
+void ft_exec_first(t_list pipex, char *argv[], char *envp[])
 {
 	pipex.args = ft_split(argv[2], ' ');
 	dup2(pipex.inputfile, STDOUT_FILENO);
 	close(pipex.fd[0]);
-	close(pipex.fd[1]);
-	if(ft_check_exist(pipex))
+	pipex.path = ft_get_path(pipex);
+	if(pipex.path != NULL)
 	{
-		execve("grep", "grep", envp);
-		return (1);
+		execve(pipex.path, pipex.args, envp);
 	}
-	return (0);
+	else
+	{
+		//free child
+		write(1, "Error command", 14);
+		exit(1);
+	}
 }
 
-int ft_exec_second(t_list pipex, char *argv[])
+void ft_exec_second(t_list pipex, char *argv[], char *envp[])
 {
 	pipex.args = ft_split(argv[3], ' ');
 	dup2(pipex.fd[0], STDIN_FILENO);
-	close(pipex.fd[0]);
 	close(pipex.fd[1]);
-	if(ft_check_exist(pipex))
+	pipex.path = ft_get_path(pipex);
+	if(pipex.path != NULL)
 	{
-		execve("grep", "grep", envp);
-		return (1);
+		execve(pipex.path, pipex.args, envp);
 	}
-	return (0);
+	else
+	{
+		//free child
+		write(1, "Error command", 14);
+		exit(1);
+	}
 }
 
-int	main(int argc, char* argv[])
+char	**ft_fill_path_env(t_list pipex, char *env[])
+{
+	char *path;
+	char **all_path;
+	int i;
+	
+	i = 0;
+	path = "PATH";
+	while (env[i])
+	{
+		if (ft_strncmp(path, env[i], 4) == 0)
+		{
+			while (*env[i] != '/' && *env[i] != '\0')
+				env[i]++;
+			all_path = ft_split(env[i], ':');
+            	return (all_path);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+int	main(int argc, char* argv[], char *envp[])
 {
 	t_list pipex;
 	
@@ -48,30 +104,34 @@ int	main(int argc, char* argv[])
 	{
 		pipex.inputfile = open(argv[1], O_RDONLY);
 		if (pipex.inputfile < 0)
-			return ("Error inputfile");
-		pipex.outputfile = open(argv[4], O_RDWR, O_CREAT)
-		if (pipe(pipex.fd) == -1)
-			return (1);
-		ft_fill_path_env(pipex, env);
+			return (0);
+		pipex.outputfile = open(argv[4], O_RDWR | O_CREAT);
+		if (pipe(pipex.fd) < 0)
+			return (0);
+		pipex.path_absolute = ft_fill_path_env(pipex, envp);
+
+
 		pipex.pid1 = fork();
-		if (pipex.pid1 < 0)
-			return (2);
 		if (pipex.pid1 == 0)
 		{
-			ft_exec_first(pipex, argv);
+			printf("in first child\n");
+			ft_exec_first(pipex, argv, envp);
 		}
+			
+		
 		pipex.pid2 = fork();
-		if (pipex.pid2 < 0)
-			return (3);
 		if (pipex.pid2 == 0)
 		{
-			ft_exec_second(pipex, argv);
+			printf("in second child\n");
+			ft_exec_second(pipex, argv, envp);
 		}
+
+		
 		close(pipex.fd[0]);
 		close(pipex.fd[1]);
 		waitpid(pipex.pid1, NULL, 0);
 		waitpid(pipex.pid2, NULL, 0);
 	}
 	else
-		return("Error argument");
+		return(0);
 }
