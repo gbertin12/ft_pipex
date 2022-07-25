@@ -45,8 +45,8 @@ void ft_exec_first(t_list *pipex, char *argv[], char *envp[])
 	// close l'entrer du pipe
 	close(pipex->fd[0]);
 	// transfert le fd de l'input file vers la sortie du pipe qui est egale a stdout
-	// donc vers stdout
-	dup2(pipex->inputfile, pipex->fd[1]);
+	// donc vers l'entree d'ecriture du pipe
+	dup2(pipex->inputfile, 0);
 	//GET le chemin absolue pour acceder a la command
 	pipex->path = ft_get_path(pipex);
 	// execute la command
@@ -65,7 +65,7 @@ void ft_exec_second(t_list *pipex, char *argv[], char *envp[])
 	// GET ARGS SECOND COMMAND
 	pipex->args = ft_split(argv[3], ' ');
 	// transfert lentrer du pipe vers stdin
-	// l'entrer du pipe devient stdin
+	// la sortie du pipe devient stdin
 	dup2(pipex->fd[0], 0);
 	// close la sortie du pipe
 	close(pipex->fd[1]);
@@ -117,14 +117,13 @@ int	main(int argc, char* argv[], char *envp[])
 		pipex->inputfile = open(argv[1], O_RDONLY);
 		if (pipex->inputfile < 0)
 			return (ft_print_error("Infile Error\n"));
-		pipex->outputfile = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0000644);
+		pipex->outputfile = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0644);
 		if (pipex->outputfile < 0)
 			return (ft_print_error("Output Error\n"));
 
 		// CHECK PIPE
 		if (pipe(pipex->fd) < 0)
 			return (ft_print_error("Pipe Error\n"));
-
 		// GET ABSOLUTE PATH
 		pipex->path_absolute = ft_fill_path_env(pipex, envp);
 
@@ -133,7 +132,7 @@ int	main(int argc, char* argv[], char *envp[])
 		if (pipex->pid1 < 0)
 			return (0);
 
-		// ENTER IN CHILD
+		// ENTER IN FIRST CHILD
 		if (pipex->pid1 == 0)
 			ft_exec_first(pipex, argv, envp);
 
