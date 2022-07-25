@@ -34,16 +34,16 @@ int main(int argc, char* argv[], char *envp[])
     t_list pipex;
     
     i = 0;
-    pipex.path_absolute = ft_fill_path_env(pipex, envp);
-	while (pipex.path_absolute[i] != NULL)
+    pipex->path_absolute = ft_fill_path_env(pipex, envp);
+	while (pipex->path_absolute[i] != NULL)
 	{
-		printf("\n%s", pipex.path_absolute[i]);
+		printf("\n%s", pipex->path_absolute[i]);
 		i++;
 	}
 	
-//    while (pipex.path_absolute[i])
+//    while (pipex->path_absolute[i])
 //    {
-//        printf("%s\n", pipex.path_absolute[i]);
+//        printf("%s\n", pipex->path_absolute[i]);
 //        i++;
 //    }
 }

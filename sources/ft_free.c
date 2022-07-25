@@ -1,23 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 01:41:17 by gbertin           #+#    #+#             */
+/*   Created: 2022/04/10 15:33:09 by gbertin           #+#    #+#             */
 /*   Updated: 2022/07/21 12:03:59 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_free_close(t_list *pipex)
 {
-	size_t	i;
+	int i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (pipex->path_absolute[i])
+	{
+		free(pipex->path_absolute[i]);
 		i++;
-	return (i);
+	}
+	free(pipex->path_absolute);
+	close(pipex->fd[0]);
+	close(pipex->fd[1]);
+	close(pipex->inputfile);
+	close(pipex->outputfile);
+}
+
+void ft_free_child(t_list *pipex)
+{
+	int i;
+
+	i = 0;
+	while (pipex->args[i])
+	{
+		free(pipex->args[i]);
+		i++;
+	}
+	free(pipex->args);
+	free(pipex->path);
+}
+
+int	ft_print_error(char *msg_error)
+{
+    write(1, msg_error, ft_strlen(msg_error));
+    return (0);
 }
