@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:33:09 by gbertin           #+#    #+#             */
-/*   Updated: 2022/07/21 12:03:59 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/07/26 11:50:17 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ft_free_close(t_list *pipex)
 		i++;
 	}
 	free(pipex->path_absolute);
-	close(pipex->fd[0]);
-	close(pipex->fd[1]);
+	close(pipex->pipe[0]);
+	close(pipex->pipe[1]);
 	close(pipex->inputfile);
 	close(pipex->outputfile);
 }

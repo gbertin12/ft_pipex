@@ -51,9 +51,9 @@ int main(int argc, char* argv[], char *envp[])
 
 // int main(int argc, char* argv[])
 // {
-//     int fd[2];
-//     // fd[0] - read
-//     // fd[1] - write
+//     int pipe[2];
+//     // pipe[0] - read
+//     // pipe[1] - write
 //     if (pipe(fd) == - 1)
 //     {
 //         write(1, "error", 6);
@@ -62,25 +62,25 @@ int main(int argc, char* argv[], char *envp[])
 //     int id = fork();
 //     if (id == 0)
 //     {
-//         close(fd[0])
+//         close(pipe[0])
 //         int x = 30;
-//         if (write(fd[1], &x, sizeof(int)) == - 1)
+//         if (write(pipe[1], &x, sizeof(int)) == - 1)
 //         {
 //             write(1, "error2", 7);
 //             return (2);
 //         }
-//         close(fd[1]);
+//         close(pipe[1]);
 //     }
 //     else 
 //     {
-//         close(fd[1]);
+//         close(pipe[1]);
 //         int y;
-//         if (read(fd[0], &y, sizeof(int)) == -1)
+//         if (read(pipe[0], &y, sizeof(int)) == -1)
 //         {
 //             write(1, "error3", 7);
 //             return (3);
 //         }
-//         close(fd[0]);
+//         close(pipe[0]);
 //         printf("from child %d", y);
 //     }
 //     return (0);

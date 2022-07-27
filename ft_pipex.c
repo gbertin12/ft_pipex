@@ -40,10 +40,10 @@ void ft_exec_first(t_list *pipex, char *argv[], char *envp[])
 	pipex->args = ft_split(argv[2], ' ');
 
 	// transfert la sortie du pipe vers stdout
-	// donc la sortie du pipe = stdout
-	dup2(pipex->fd[1], 1);
+	// donc la sorti0e du pipe = stdout
+	dup2(pipex->pipe[1], 1);
 	// close l'entrer du pipe
-	close(pipex->fd[0]);
+	close(pipex->pipe[0]);
 	// transfert le fd de l'input file vers la sortie du pipe qui est egale a stdout
 	// donc vers l'entree d'ecriture du pipe
 	dup2(pipex->inputfile, 0);
@@ -66,9 +66,9 @@ void ft_exec_second(t_list *pipex, char *argv[], char *envp[])
 	pipex->args = ft_split(argv[3], ' ');
 	// transfert lentrer du pipe vers stdin
 	// la sortie du pipe devient stdin
-	dup2(pipex->fd[0], 0);
+	dup2(pipex->pipe[0], 0);
 	// close la sortie du pipe
-	close(pipex->fd[1]);
+	close(pipex->pipe[1]);
 	// transfert le fd de l'outputfile vers stdout
 	// donc le fd de l'output file devient stdout
 	dup2(pipex->outputfile, 1);
@@ -83,25 +83,7 @@ void ft_exec_second(t_list *pipex, char *argv[], char *envp[])
 	}
 }
 
-char	**ft_fill_path_env(t_list *pipex, char *env[])
-{
-	char **all_path;
-	int i;
-	
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp("PATH", env[i], 4) == 0)
-		{
-			while (*env[i] != '/' && *env[i] != '\0')
-				env[i]++;
-			all_path = ft_split(env[i], ':');
-            	return (all_path);
-		}
-		i++;
-	}
-	return (NULL);
-}
+
 
 int	main(int argc, char* argv[], char *envp[])
 {
@@ -122,10 +104,10 @@ int	main(int argc, char* argv[], char *envp[])
 			return (ft_print_error("Output Error\n"));
 
 		// CHECK PIPE
-		if (pipe(pipex->fd) < 0)
+		if (pipe(pipex->pipe) < 0)
 			return (ft_print_error("Pipe Error\n"));
 		// GET ABSOLUTE PATH
-		pipex->path_absolute = ft_fill_path_env(pipex, envp);
+		pipex->path_absolute = ft_fill_path_env(envp);
 
 		// MAKE FORK
 		pipex->pid1 = fork();
