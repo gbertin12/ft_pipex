@@ -6,7 +6,7 @@
 #    By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 11:47:30 by gbertin           #+#    #+#              #
-#    Updated: 2022/07/27 15:20:48 by gbertin          ###   ########.fr        #
+#    Updated: 2022/07/28 09:10:39 by gbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS_BONUS = 	ft_pipex_bonus.c \
 				sources/ft_utils.c \
 				src_bonus/free_bonus.c \
 				src_bonus/init_bonus.c \
+				src_bonus/init_bonus2.c \
 				sources/ft_strncmp.c 
 
 HEAD = includes/pipex.h

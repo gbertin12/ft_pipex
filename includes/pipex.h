@@ -33,14 +33,6 @@ typedef struct t_list
 	char	**args;
 }              t_list;
 
-typedef struct t_struct
-{
-	int		inputfile;
-	int		outputfile;
-	char	**path_absolute;
-	
-}			t_struct;
-
 typedef struct t_list_bonus
 {
 	pid_t			pid;
@@ -49,6 +41,15 @@ typedef struct t_list_bonus
 	char			*path;
 	void			*next;
 }			t_list_bonus;
+
+typedef struct t_struct
+{
+	int				inputfile;
+	int				outputfile;
+	char			**path_absolute;
+	t_list_bonus 	*cmd;
+	
+}			t_struct;
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
@@ -70,14 +71,21 @@ char	*ft_get_path(t_list *pipex);
 
 /// BONUS
 
-int		ft_free_struct(t_struct *pipex, t_list_bonus *cmd);
-int 	ft_init(t_struct *pipex, t_list_bonus *cmd, char *argv[], char *envp[]);
-int		ft_init_list(t_struct *pipex, t_list_bonus *cmd, char *argv);
-int		ft_fill_list(t_struct *pipex, t_list_bonus *cmd, char *argv[]);
-char	*ft_get_path_bonus(t_struct *pipex, t_list_bonus *cmd);
-int		ft_addend(t_struct *pipex, t_list_bonus *cmd, char *argv);
+int		ft_free_struct(t_struct *pipex);
 
+// INIT 
+int 			ft_init(t_struct *pipex, char *argv[], char *envp[], int argc);
+int				ft_init_list(t_struct *pipex, char *argv);
+int				ft_fill_list(t_struct *pipex, char *argv[]);
+char			*ft_get_path_bonus(t_struct *pipex, t_list_bonus *cmd);
+int				ft_addend(t_struct *pipex, char *argv);
+t_list_bonus	*ft_islast(t_list_bonus *lst);
+int				ft_open_files(t_struct *pipex, int argc, char *argv[]);
 
-
-void    ft_print_args(t_list_bonus *cmd);
+// EXEC 
+void	ft_exec_first_bonus(t_struct *pipex, t_list_bonus *cmd, char *envp[]);
+int		ft_exec_cmd(t_struct *pipex, t_list_bonus *cmd, char *envp[])
+void	ft_exec_last_cmd(t_struct *pipex, t_list_bonus *cmd, t_list_bonus *cmd_before, char *envp[]);
+int		ft_exec_args(t_struct *pipex, t_list_bonus *cmd, char *envp[]);
+void    ft_print_args(t_list_bonus *cmd, t_struct *pipex);
 #endif
