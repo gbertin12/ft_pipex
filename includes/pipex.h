@@ -36,7 +36,6 @@ typedef struct t_list
 typedef struct t_list_bonus
 {
 	pid_t			pid;
-	int				pipe[2];
 	char			**args;
 	char			*path;
 	void			*next;
@@ -84,8 +83,15 @@ int				ft_open_files(t_struct *pipex, int argc, char *argv[]);
 
 // EXEC 
 void	ft_exec_first_bonus(t_struct *pipex, t_list_bonus *cmd, char *envp[]);
-int		ft_exec_cmd(t_struct *pipex, t_list_bonus *cmd, char *envp[])
+int		ft_exec_cmd(t_list_bonus *cmd, char *envp[]);
 void	ft_exec_last_cmd(t_struct *pipex, t_list_bonus *cmd, t_list_bonus *cmd_before, char *envp[]);
+int		ft_browse_args(t_struct *pipex, t_list_bonus *cmd, char *envp[]);
 int		ft_exec_args(t_struct *pipex, t_list_bonus *cmd, char *envp[]);
 void    ft_print_args(t_list_bonus *cmd, t_struct *pipex);
+
+// FREE 
+void	ft_free_close_bonus(t_struct *pipex, t_list_bonus *cmd);
+void ft_free_list(t_list_bonus *cmd);
+void ft_free_args(t_list_bonus *cmd);
+
 #endif

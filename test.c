@@ -57,4 +57,89 @@ int main()
 	return (0);
 }
 
+// void	ft_exec_first_bonus(t_struct *pipex, t_list_bonus *cmd, char *envp[])
+// {
+// 	printf("FIRST pid : %d || arg : %s\n", cmd->pid, cmd->args[0]);
+// 	dup2(cmd->pipe[1], 1);
+// 	close(cmd->pipe[0]);
+// 	dup2(pipex->inputfile, 0);
+// 	if (cmd->path != NULL)
+// 		execve(cmd->path, cmd->args, envp);
+// 	else
+// 	{
+// 		//free
+// 		write(1, "Error command\n", 15);
+// 		exit(1);
+// 	}
+// }
+
+// void	ft_exec_cmd(t_list_bonus *cmd, t_list_bonus *cmd_before, char *envp[])
+// {
+// 	printf("NORMAL pid : %d || arg : %s\n", cmd->pid, cmd->args[0]);
+// 	printf("NORMAL pid_before : %d || arg : %s\n", cmd_before->pipe[1], cmd_before->args[0]);
+// 	dup2(cmd_before->pipe[0], 0);
+// 	printf("FF15 : %d || arg : %s\n", cmd_before->pipe[1], cmd_before->args[0]);
+// 	close(cmd_before->pipe[1]); 
+// 	dup2(cmd->pipe[1], 1); //close 6
+// 	if (cmd->path != NULL)
+// 		execve (cmd->path, cmd->args, envp);
+// 	else
+// 	{
+// 		//free
+// 		write(1, "Error command\n", 15);
+// 		exit(1);
+// 	}
+// }
+
+// void	ft_exec_last_cmd(t_struct *pipex, t_list_bonus *cmd, t_list_bonus *cmd_before, char *envp[])
+// {
+// 	printf("LAST pid_before : %d || arg : %s\n", cmd_before->pipe[0], cmd_before->args[0]);
+// 	printf("LAST pid : %d || arg : %s\n", cmd->pid, cmd->args[0]);
+// 	dup2(cmd_before->pipe[0], 0);
+// 	close(cmd_before->pipe[1]); // close 8
+// 	dup2(pipex->outputfile, 1);
+// 	if (cmd->path != NULL)
+// 		execve(cmd->path, cmd->args, envp);
+// 	else
+// 	{
+// 		//free
+// 		write(1, "Error command\n", 15);
+// 		exit(1);
+// 	}
+// }
+
+// int	ft_exec_argss(t_struct *pipex, t_list_bonus *cmd, char *envp[])
+// {
+// 	t_list_bonus *cmd_before;
+// 	cmd->pid = fork();
+// 	if (cmd->pid < 0)
+// 		return (0);
+// 	if (pipe(cmd->pipe) < 0)
+// 		return (0);
+// 	if (cmd->pid == 0)
+// 		ft_exec_first_bonus(pipex, cmd, envp);
+// 	cmd_before = cmd;
+// 	cmd = cmd->next;
+// 	while (cmd)
+// 	{
+// 		if (pipe(cmd->pipe) < 0)
+// 			return (0);
+// 		cmd->pid = fork();
+// 		if (cmd->pid < 0)
+// 			return (0);
+// 		if (cmd->next && cmd->pid == 0)
+// 		{
+// 			ft_exec_cmd(cmd, cmd_before, envp);
+// 		}
+// 		if (!cmd->next && cmd->pid == 0)
+// 			ft_exec_last_cmd(pipex, cmd, cmd_before, envp);
+// 		close(cmd_before->pipe[0]);
+// 		cmd_before = cmd;
+// 		printf("%d\n", cmd->pid);
+// 		waitpid(cmd->pid, NULL, 0);
+// 		cmd = cmd->next;
+
+// 	}
+// 	return (1);
+// }
 
