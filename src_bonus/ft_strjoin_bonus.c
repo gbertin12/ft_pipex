@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_bonus2.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/28 09:04:52 by gbertin           #+#    #+#             */
-/*   Updated: 2022/07/28 09:15:47 by gbertin          ###   ########.fr       */
+/*   Created: 2022/04/09 19:00:18 by gbertin           #+#    #+#             */
+/*   Updated: 2022/08/01 08:59:44 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	ft_open_files(t_struct *pipex, int argc, char *argv[])
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	pipex->inputfile = open(argv[1], O_RDONLY);
-	if (pipex->inputfile < 0)
-		return (0);
-	pipex->outputfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
-		if (pipex->outputfile < 0)
-			return (0);
-    return (1);
-}
+	unsigned int	len_s;
+	char			*new_s;
+	unsigned int	i;
+	unsigned int	j;
 
-t_list_bonus	*ft_islast(t_list_bonus *lst)
-{
-	if (!lst)
+	i = 0;
+	j = 0;
+	len_s = ft_strlen(s1) + ft_strlen(s2) + 1;
+	new_s = (char *)ft_memalloc(len_s);
+	if (!new_s)
 		return (NULL);
-	while (lst)
+	while (s1[i] != '\0')
 	{
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
+		new_s[i] = s1[i];
+		i++;
 	}
-	return (lst);
+	while (s2[j] != '\0')
+		new_s[i++] = s2[j++];
+	new_s[i] = '\0';
+	return (new_s);
 }

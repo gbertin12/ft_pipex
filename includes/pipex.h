@@ -21,6 +21,10 @@
 #include <string.h>
 #include <fcntl.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 typedef struct t_list
 {
 	pid_t	pid1;
@@ -81,17 +85,33 @@ int				ft_addend(t_struct *pipex, char *argv);
 t_list_bonus	*ft_islast(t_list_bonus *lst);
 int				ft_open_files(t_struct *pipex, int argc, char *argv[]);
 
-// EXEC 
+// MULTI PIPE
 void	ft_exec_first_bonus(t_struct *pipex, t_list_bonus *cmd, char *envp[]);
 int		ft_exec_cmd(t_list_bonus *cmd, char *envp[]);
 void	ft_exec_last_cmd(t_struct *pipex, t_list_bonus *cmd, t_list_bonus *cmd_before, char *envp[]);
 int		ft_browse_args(t_struct *pipex, t_list_bonus *cmd, char *envp[]);
 int		ft_exec_args(t_struct *pipex, t_list_bonus *cmd, char *envp[]);
-void    ft_print_args(t_list_bonus *cmd, t_struct *pipex);
 
 // FREE 
-void	ft_free_close_bonus(t_struct *pipex, t_list_bonus *cmd);
-void ft_free_list(t_list_bonus *cmd);
-void ft_free_args(t_list_bonus *cmd);
+void	ft_free_close_bonus(t_struct *pipex, t_list_bonus *cmd, char **argv);
+void	ft_free_list(t_list_bonus *cmd);
+void	ft_free_args(t_list_bonus *cmd);
+void	ft_waitpid(t_list_bonus *cmd);
+
+// GNL
+int		ft_strlen_gnl(char *s);
+char	*ft_strcat_gnl(char *s1, char *s2);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+int		ft_strchr_gnl(char *s, int c);
+
+char	*ft_saveline(char *str);
+char	*ft_cutline(char *str);
+char	*get_next_line(int fd);
+
+// HEREDOC
+void	ft_print_fd(int fd);
+void	ft_write_on_fd(char *str, int fd);
+int		ft_heredoc(t_struct *pipex, char *heredoc);
+char	*ft_strdup(const char *s1);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 11:47:30 by gbertin           #+#    #+#              #
-#    Updated: 2022/07/28 09:10:39 by gbertin          ###   ########.fr        #
+#    Updated: 2022/08/01 15:52:48 by gbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,17 +26,21 @@ SRCS = 	ft_pipex.c \
 		sources/ft_strncmp.c 
 
 SRCS_BONUS = 	ft_pipex_bonus.c \
-				sources/ft_bzero.c \
-				sources/ft_free.c \
-				sources/ft_split.c \
-				sources/ft_memset.c \
-				sources/ft_strjoin.c \
-				sources/ft_strlen.c \
-				sources/ft_utils.c \
+				src_bonus/ft_bzero_bonus.c \
+				src_bonus/ft_free_bonus.c \
+				src_bonus/ft_split_bonus.c \
+				src_bonus/ft_memset_bonus.c \
+				src_bonus/ft_strjoin_bonus.c \
+				src_bonus/ft_strlen_bonus.c \
 				src_bonus/free_bonus.c \
 				src_bonus/init_bonus.c \
-				src_bonus/init_bonus2.c \
-				sources/ft_strncmp.c 
+				src_bonus/init2_bonus.c \
+				src_bonus/ft_multi_pipe_bonus.c \
+				src_bonus/get_next_line_bonus.c \
+				src_bonus/ft_heredoc_bonus.c \
+				src_bonus/ft_strdup_bonus.c \
+				src_bonus/get_next_line_utils_bonus.c \
+				src_bonus/ft_strncmp_bonus.c 
 
 HEAD = includes/pipex.h
 
@@ -54,7 +58,7 @@ clean:
 	$(RM) $(OBJ) $(OBJ_BONUS)
 
 fclean: clean
-			$(RM) $(NAME)
+			$(RM) $(NAME) $(NAME_BONUS) 
 
 OBJ_BONUS=$(SRCS_BONUS:.c=.o)
 
