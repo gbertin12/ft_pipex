@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:45:30 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/01 15:38:40 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/03 09:18:49 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int ft_fill_list(t_struct *pipex, char *argv[])
         return (0);
     while (argv[i] && argv[i + 1])
     {
-		printf("here\n");
 		//check problem
 		//check licks
 		if (!ft_addend(pipex, argv[i]))

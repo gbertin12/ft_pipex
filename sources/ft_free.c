@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:33:09 by gbertin           #+#    #+#             */
-/*   Updated: 2022/07/26 11:50:17 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/03 15:54:45 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void ft_free_child(t_list *pipex)
 	free(pipex->path);
 }
 
-int	ft_print_error(char *msg_error)
+int	ft_error(t_list *pipex)
 {
-    write(1, msg_error, ft_strlen(msg_error));
-    return (0);
+	free(pipex);
+    return (1);
 }

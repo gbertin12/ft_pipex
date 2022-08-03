@@ -25,6 +25,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
+//https://github.com/vfurmane/pipex-tester
 typedef struct t_list
 {
 	pid_t	pid1;
@@ -60,10 +61,12 @@ char	**ft_split(char const *s, char c);
 char 	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
+int		ft_strcmp(char *str1, char *str2);
+int		ft_search_char(char *str);
 
 void	*ft_memalloc(size_t size);
 void	ft_free_close(t_list *pipex);
-int		ft_print_error(char *msg_error);
+int		ft_error(t_list *pipex);
 void	ft_free_child(t_list *pipex);
 
 
@@ -112,6 +115,6 @@ char	*get_next_line(int fd);
 void	ft_print_fd(int fd);
 void	ft_write_on_fd(char *str, int fd);
 int		ft_heredoc(t_struct *pipex, char *heredoc);
-char	*ft_strdup(const char *s1);
+char	*ft_strdup(char *s1);
 
 #endif

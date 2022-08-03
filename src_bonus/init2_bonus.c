@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:04:52 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/01 15:02:23 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/03 10:05:51 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 int	ft_open_files(t_struct *pipex, int argc, char *argv[])
 {
-	if (!(ft_strncmp(argv[1], "here_doc", 9) == 0))
+	if ((ft_strncmp(argv[1], "here_doc", 9) == 0))
 	{
-		pipex->inputfile = open(argv[1], O_RDONLY);
+		pipex->inputfile = open(".heredoc", O_RDONLY);
 		if (pipex->inputfile < 0)
 			return (0);
+		pipex->outputfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (pipex->outputfile < 0)
+			return (0);
+		return (1);
 	}
-	pipex->outputfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
+	pipex->inputfile = open(argv[1], O_RDONLY);
+		if (pipex->inputfile < 0)
+			return (0);
+	pipex->outputfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (pipex->outputfile < 0)
 		return (0);
 	return (1);

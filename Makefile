@@ -6,7 +6,7 @@
 #    By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 11:47:30 by gbertin           #+#    #+#              #
-#    Updated: 2022/08/01 15:52:48 by gbertin          ###   ########.fr        #
+#    Updated: 2022/08/03 08:44:42 by gbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_BONUS = 	ft_pipex_bonus.c \
 				src_bonus/ft_multi_pipe_bonus.c \
 				src_bonus/get_next_line_bonus.c \
 				src_bonus/ft_heredoc_bonus.c \
+				src_bonus/ft_strcmp.c \
 				src_bonus/ft_strdup_bonus.c \
 				src_bonus/get_next_line_utils_bonus.c \
 				src_bonus/ft_strncmp_bonus.c 

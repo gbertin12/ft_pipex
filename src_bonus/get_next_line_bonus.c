@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:48:58 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/01 14:35:46 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/03 10:15:20 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*ft_saveline(char *str)
 		free(str);
 		return (NULL);
 	}
-	if (ft_strlen(str + i) == 0)
+	if (ft_strlen_gnl(str + i) == 0)
 		return (NULL);
 	new = (char *)malloc(sizeof(char) * (ft_strlen_gnl(str) - i + 1));
 	if (!new)

@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:49:12 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/01 15:52:22 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/03 10:19:38 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strcpy(char *dst, const char *src)
 	return (dst);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	int		length;
 	char	*tmp;
@@ -36,5 +36,6 @@ char	*ft_strdup(const char *s1)
 	if (tmp == NULL)
 		return (NULL);
 	ft_strcpy(tmp, s1);
+	free(s1);
 	return (tmp);
 }

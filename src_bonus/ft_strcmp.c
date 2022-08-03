@@ -1,47 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/27 15:18:17 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/03 15:44:18 by gbertin          ###   ########.fr       */
+/*   Created: 2022/08/03 08:36:35 by gbertin           #+#    #+#             */
+/*   Updated: 2022/08/03 09:13:05 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-char	**ft_fill_path_env(char *env[])
-{
-	char **all_path;
-	int i;
-	
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp("PATH", env[i], 4) == 0)
-		{
-			while (*env[i] != '/' && *env[i] != '\0')
-				env[i]++;
-			all_path = ft_split(env[i], ':');
-            	return (all_path);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-int	ft_search_char(char *str)
+int	ft_strcmp(char *str1, char *str2)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str1[i] || str2[i])
 	{
-		if (str[i] == '/')
+		if (str1[i] == '\n' && str2[i] == '\0')
 			return (1);
+		if (str1[i] != str2[i])
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }

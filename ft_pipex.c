@@ -19,8 +19,12 @@ char	*ft_get_path(t_list *pipex)
 	char *path;
 
 	i = 0;
-	if (pipex->path_absolute[0] == NULL)
+	if (pipex->path_absolute[0] == NULL || ft_search_char(pipex->args[0]))
+	{
+		if (access(pipex->args[0], 0) == 0)
+			return (pipex->args[0]);
 		return (NULL);
+	}
 	while (pipex->path_absolute[i] != NULL)
 	{
 		tmp = ft_strjoin(pipex->path_absolute[i], "/");
@@ -46,7 +50,6 @@ void ft_exec_first(t_list *pipex, char *argv[], char *envp[])
 	else
 	{
 		ft_free_child(pipex);
-		write(1, "Error command\n", 15);
 		exit(1);
 	}
 }
@@ -63,7 +66,6 @@ void ft_exec_second(t_list *pipex, char *argv[], char *envp[])
 	else
 	{
 		ft_free_child(pipex);
-		write(1, "Error command\n", 15);
 		exit(1);
 	}
 }
@@ -80,19 +82,21 @@ int	main(int argc, char* argv[], char *envp[])
 	{
 		pipex->inputfile = open(argv[1], O_RDONLY);
 		if (pipex->inputfile < 0)
-			return (ft_print_error("Infile Error\n"));
+			return (ft_error(pipex));
 		pipex->outputfile = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0644);
 		if (pipex->outputfile < 0)
-			return (ft_print_error("Output Error\n"));
+			return (ft_error(pipex));
 		if (pipe(pipex->pipe) < 0)
-			return (ft_print_error("Pipe Error\n"));
+			return (ft_error(pipex));
 		pipex->path_absolute = ft_fill_path_env(envp);
 		pipex->pid1 = fork();
 		if (pipex->pid1 < 0)
-			return (0);
+			return (ft_error(pipex));
 		if (pipex->pid1 == 0)
 			ft_exec_first(pipex, argv, envp);
 		pipex->pid2 = fork();
+		if (pipex->pid2 < 0)
+			return (ft_error(pipex));
 		if (pipex->pid2 == 0)
 			ft_exec_second(pipex, argv, envp);
 		ft_free_close(pipex);
@@ -100,5 +104,11 @@ int	main(int argc, char* argv[], char *envp[])
 		waitpid(pipex->pid2, NULL, 0);
 		free(pipex);
 	}
+	else
+	{
+		free(pipex);
+		return (1);
+	}
+		
 	return (0);
 }
