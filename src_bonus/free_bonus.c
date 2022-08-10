@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:24:28 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/09 18:28:15 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/10 11:40:50 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_free_close_bonus(t_struct *pipex, t_list_bonus *cmd)
 {
-	int 			i;
+	int	i;
 
 	i = 0;
 	(void)cmd;
@@ -23,7 +23,6 @@ void	ft_free_close_bonus(t_struct *pipex, t_list_bonus *cmd)
 		while (pipex->path_absolute[i])
 		{
 			free(pipex->path_absolute[i]);
-
 			i++;
 		}
 		free(pipex->path_absolute);
@@ -34,16 +33,16 @@ void	ft_free_close_bonus(t_struct *pipex, t_list_bonus *cmd)
 	free(pipex);
 }
 
-int ft_free_struct(t_struct *pipex)
+int	ft_free_struct(t_struct *pipex)
 {
-    if (pipex)
-        free (pipex);
-    return (0);
+	if (pipex)
+		free (pipex);
+	return (0);
 }
 
-void ft_free_args(t_list_bonus *cmd)
+void	ft_free_args(t_list_bonus *cmd)
 {
-	int 			i;
+	int	i;
 
 	i = 0;
 	if (cmd != NULL)
@@ -59,17 +58,16 @@ void ft_free_args(t_list_bonus *cmd)
 	free(cmd->args);
 }
 
-void ft_free_list(t_list_bonus *cmd)
+void	ft_free_list(t_list_bonus *cmd)
 {
-	t_list_bonus 	*temp;
-	
+	t_list_bonus	*temp;
+
 	while (cmd)
 	{
 		if (cmd->path)
 			free(cmd->path);
 		cmd->path = NULL;
 		ft_free_args(cmd);
-		//free(cmd->args);
 		temp = cmd;
 		cmd = cmd->next;
 		free(temp);
@@ -77,19 +75,12 @@ void ft_free_list(t_list_bonus *cmd)
 	}
 }
 
-void	free_child(t_list_bonus *cmd, t_struct *pipex)
+int	free_bad_files(t_struct *pipex)
 {
 	int	i;
 
 	i = 0;
-	while (cmd->args[i])
-	{
-		free(cmd->args[i]);
-		i++;
-	}
-	free(cmd->args);
-	i = 0;
-	if (pipex->path_absolute != NULL)
+	if (pipex->path_absolute)
 	{
 		while (pipex->path_absolute[i])
 		{
@@ -98,9 +89,6 @@ void	free_child(t_list_bonus *cmd, t_struct *pipex)
 		}
 		free(pipex->path_absolute);
 	}
-	free(cmd->path);
-	if (pipex->cmd != NULL)
-		free(cmd);
-	if (pipex != NULL)
-		free(pipex);
+	free(pipex);
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 11:47:30 by gbertin           #+#    #+#              #
-#    Updated: 2022/08/09 17:50:36 by gbertin          ###   ########.fr        #
+#    Updated: 2022/08/10 11:41:06 by gbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS_BONUS = 	pipex_bonus.c \
 				src_bonus/create_list_bonus.c \
 				src_bonus/free_bonus.c \
 				src_bonus/heredoc_bonus.c \
-				src_bonus/msg_err_bonus.c \
+				src_bonus/return_err_bonus.c \
 				src_bonus/multi_pipe_bonus.c \
 				src_bonus/open_bonus.c \
 				src_bonus/search_path_bonus.c \

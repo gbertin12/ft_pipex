@@ -6,20 +6,19 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 14:37:54 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/09 18:03:15 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/10 11:43:38 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-char *make_path(t_struct *pipex, t_list_bonus *cmd)
+char	*make_path(t_struct *pipex, t_list_bonus *cmd)
 {
-	int i;
-	char *tmp;
-	char *path;
+	int		i;
+	char	*tmp;
+	char	*path;
 
 	i = 0;
-
 	if (pipex->path_absolute == NULL || ft_search_char(cmd->args[0]))
 	{
 		if (access(cmd->args[0], 0) == 0)
@@ -43,7 +42,7 @@ char	**get_path_env(char *env[])
 {
 	char	**all_path;
 	int		i;
-	
+
 	i = 0;
 	while (env[i])
 	{
@@ -52,7 +51,7 @@ char	**get_path_env(char *env[])
 			while (*env[i] != '/' && *env[i] != '\0')
 				env[i]++;
 			all_path = ft_split(env[i], ':');
-            	return (all_path);
+			return (all_path);
 		}
 		i++;
 	}
