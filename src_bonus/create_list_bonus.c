@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:45:30 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/10 11:26:10 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/10 14:21:35 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ int	ft_init(t_struct *pipex, char *argv[], char *envp[], int argc)
 {
 	pipex->path_absolute = get_path_env(envp);
 	if (!open_files(pipex, argc, argv))
-		return (free_bad_files(pipex));
+		return (0);
 	if (!ft_fill_list(pipex, argv))
 	{
-		ft_free_close_bonus(pipex, pipex->cmd);
 		return (0);
 	}
 	return (1);

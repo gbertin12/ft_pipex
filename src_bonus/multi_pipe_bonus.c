@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 08:37:41 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/10 11:30:10 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/10 17:17:35 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_exec_cmd(t_list_bonus *cmd, t_struct *pipex, char *envp[])
 
 	if (pipe(pip) == -1)
 		return (0);
+	//fprintf(stderr, " |||| fd[0] = %d && fd[1] = %d\n", pip[0], pip[1]);
 	if (cmd->next)
 		execmid_cmd(pip, cmd, pipex, envp);
 	else
@@ -48,7 +49,9 @@ int	execmid_cmd(int pip[2], t_list_bonus *cmd, t_struct *pipex, char *envp[])
 	cmd->pid = pid;
 	if (pid == 0)
 	{
+		fprintf(stderr, "PID = %d |||| fd[0] = %d && fd[1] = %d\n", cmd->pid, pip[0], pip[1]);
 		close(pip[0]);
+		close(pipex->inputfile);
 		if (dup2(pip[1], 1) == -1)
 			return (0);
 		if (cmd->path != NULL)
@@ -58,9 +61,11 @@ int	execmid_cmd(int pip[2], t_list_bonus *cmd, t_struct *pipex, char *envp[])
 	}
 	else
 	{
+		//fprintf(stderr, "BEFORE PID = %d |||| fd[0] = %d && fd[1] = %d\n", cmd->pid, pip[0], pip[1]);
 		close(pip[1]);
 		if (dup2(pip[0], 0) == -1)
 			return (0);
+		//fprintf(stderr, "AFTER DUP PID = %d |||| fd[0] = %d && fd[1] = %d\n", cmd->pid, pip[0], pip[1]);
 	}
 	return (1);
 }
