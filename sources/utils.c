@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:18:17 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/09 14:49:53 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/20 12:08:52 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ char	*ft_get_path(t_list *pipex)
 	char	*path;
 
 	i = 0;
-	if (pipex->path_absolute == NULL || ft_search_char(pipex->args[0]))
+	if (pipex->args == NULL)
+		return (NULL);
+	if (pipex->path_absolute == NULL)
 	{
 		if (access(pipex->args[0], 0) == 0)
 			return (pipex->args[0]);

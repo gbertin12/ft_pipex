@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:10:02 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/09 12:27:26 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/20 12:14:00 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**ft_split(char *s, char c)
 	y = 0;
 	new_strs = ft_memalloc(sizeof(char *) * (ft_nbwords(s, c) + 1));
 	if (!new_strs)
-		return (0);
+		return (NULL);
 	while (s[i] != '\0')
 	{
 		while (s[i] != '\0' && s[i] == c)

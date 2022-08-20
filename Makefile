@@ -6,14 +6,14 @@
 #    By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 11:47:30 by gbertin           #+#    #+#              #
-#    Updated: 2022/08/10 11:41:06 by gbertin          ###   ########.fr        #
+#    Updated: 2022/08/20 12:00:08 by gbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 NAME_BONUS = pipex_bonus
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 SRCS = 	pipex.c \
 		sources/free.c \
@@ -26,7 +26,8 @@ SRCS = 	pipex.c \
 		sources/libs/ft_memset.c \
 		sources/libs/ft_strjoin.c \
 		sources/libs/ft_strlen.c \
-		sources/libs/ft_strncmp.c 
+		sources/libs/ft_strncmp.c \
+		sources/libs/search_char.c
 
 		
 
@@ -60,7 +61,7 @@ all: $(NAME)
 		$(CC) $(FLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME):$(OBJ)
-		$(CC) $(FLAGS) -o $(NAME) $(OBJ)
+		$(CC) $(FLAGS) -o $(NAME) $(OBJ) -fsanitize=address -g3
 
 clean:
 	$(RM) $(OBJ) $(OBJ_BONUS)

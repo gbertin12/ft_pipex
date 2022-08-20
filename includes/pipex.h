@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 13:38:27 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/10 12:27:21 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/20 11:58:09 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char			*ft_strjoin(char const *s1, char const *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t			ft_strlen(const char *s);
 void			*ft_memalloc(size_t size);
+int				search_char(char *s);
 
 // EXECUTE CMD
 int				execute_cmd(t_list *pipex, char **argv, char **envp);

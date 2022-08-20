@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:07:03 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/09 14:49:53 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/20 12:14:29 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,15 @@ int	execute_cmd(t_list *pipex, char **argv, char **envp)
 
 void	ft_exec_first(t_list *pipex, char *argv[], char *envp[])
 {
-	pipex->args = ft_split(argv[2], ' ');
+	if (argv[2] || search_char(argv[2]))
+		pipex->args = ft_split(argv[2], ' ');
+	else 
+		pipex->args = NULL;
 	dup2(pipex->pipe[1], 1);
 	close(pipex->pipe[0]);
 	dup2(pipex->inputfile, 0);
 	pipex->path = ft_get_path(pipex);
-	if (pipex->path != NULL)
+	if (pipex->path != NULL && pipex->args != NULL)
 		execve(pipex->path, pipex->args, envp);
 	else
 	{
@@ -48,12 +51,15 @@ void	ft_exec_first(t_list *pipex, char *argv[], char *envp[])
 
 void	ft_exec_second(t_list *pipex, char *argv[], char *envp[])
 {
-	pipex->args = ft_split(argv[3], ' ');
+	if (argv[3] || search_char(argv[3]))
+		pipex->args = ft_split(argv[3], ' ');
+	else 
+		pipex->args = NULL;
 	dup2(pipex->pipe[0], 0);
 	close(pipex->pipe[1]);
 	dup2(pipex->outputfile, 1);
 	pipex->path = ft_get_path(pipex);
-	if (pipex->path != NULL)
+	if (pipex->path != NULL && pipex->args != NULL)
 		execve(pipex->path, pipex->args, envp);
 	else
 	{

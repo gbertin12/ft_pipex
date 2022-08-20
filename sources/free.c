@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:33:09 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/09 12:57:39 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/20 12:06:26 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,13 @@ void	free_child(t_list *pipex)
 	int	i;
 
 	i = 0;
-	while (pipex->args[i])
+	if (pipex->args != NULL)
 	{
-		free(pipex->args[i]);
-		i++;
+		while (pipex->args[i])
+		{
+			free(pipex->args[i]);
+			i++;
+		}
 	}
 	i = 0;
 	if (pipex->path_absolute)
