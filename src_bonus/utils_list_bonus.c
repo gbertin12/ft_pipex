@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 14:52:54 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/10 11:42:59 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/22 12:18:59 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	wait_all_pid(t_list_bonus *cmd)
 {
 	while (cmd)
 	{
-		waitpid(cmd->pid, NULL, 0);
+		waitpid(-1, NULL, 0);
 		cmd = cmd->next;
 	}
 }

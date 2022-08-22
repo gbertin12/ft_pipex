@@ -6,7 +6,7 @@
 #    By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 11:47:30 by gbertin           #+#    #+#              #
-#    Updated: 2022/08/20 12:00:08 by gbertin          ###   ########.fr        #
+#    Updated: 2022/08/22 10:13:49 by gbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ all: $(NAME)
 		$(CC) $(FLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME):$(OBJ)
-		$(CC) $(FLAGS) -o $(NAME) $(OBJ) -fsanitize=address -g3
+		$(CC) $(FLAGS) -o $(NAME) $(OBJ) -g3
 
 clean:
 	$(RM) $(OBJ) $(OBJ_BONUS)

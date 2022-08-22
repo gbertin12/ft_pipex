@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:07:03 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/20 12:14:29 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/08/22 10:17:50 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	execute_cmd(t_list *pipex, char **argv, char **envp)
 
 void	ft_exec_first(t_list *pipex, char *argv[], char *envp[])
 {
-	if (argv[2] || search_char(argv[2]))
+	if (argv[2] && search_char(argv[2]))
 		pipex->args = ft_split(argv[2], ' ');
 	else 
 		pipex->args = NULL;
@@ -51,7 +51,7 @@ void	ft_exec_first(t_list *pipex, char *argv[], char *envp[])
 
 void	ft_exec_second(t_list *pipex, char *argv[], char *envp[])
 {
-	if (argv[3] || search_char(argv[3]))
+	if (argv[3] && search_char(argv[3]))
 		pipex->args = ft_split(argv[3], ' ');
 	else 
 		pipex->args = NULL;
