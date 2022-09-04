@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:07:03 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/22 10:17:50 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/09/01 10:01:55 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	ft_exec_first(t_list *pipex, char *argv[], char *envp[])
 		execve(pipex->path, pipex->args, envp);
 	else
 	{
+		perror("");
 		free_child(pipex);
-		exit(1);
+		exit(errno);
 	}
 }
 
@@ -63,7 +64,8 @@ void	ft_exec_second(t_list *pipex, char *argv[], char *envp[])
 		execve(pipex->path, pipex->args, envp);
 	else
 	{
+		perror("");
 		free_child(pipex);
-		exit(1);
+		exit(errno);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 14:52:54 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/22 12:18:59 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/09/04 14:16:23 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	ft_addend(t_struct *pipex, char *argv)
 	if (!new_cmd->args)
 		return (0);
 	new_cmd->path = make_path(pipex, new_cmd);
+	if (!new_cmd->path)
+		write(2, "Invalid Argument\n", 18);
 	new_cmd->next = NULL;
 	last_cmd->next = new_cmd;
 	return (1);

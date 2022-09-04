@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 11:44:42 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/10 12:25:14 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/09/04 14:05:11 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <string.h>
 # include <fcntl.h>
+#include <errno.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42

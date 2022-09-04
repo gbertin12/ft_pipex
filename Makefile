@@ -6,14 +6,14 @@
 #    By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 11:47:30 by gbertin           #+#    #+#              #
-#    Updated: 2022/08/22 10:13:49 by gbertin          ###   ########.fr        #
+#    Updated: 2022/09/04 14:08:25 by gbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 NAME_BONUS = pipex_bonus
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 RM = rm -f
 SRCS = 	pipex.c \
 		sources/free.c \

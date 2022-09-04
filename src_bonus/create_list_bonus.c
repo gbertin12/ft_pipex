@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:45:30 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/10 14:21:35 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/09/04 14:16:49 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	ft_init_list(t_struct *pipex, char *argv)
 	if (!init->args)
 		return (0);
 	init->path = make_path(pipex, init);
+	if (!init->path)
+		write(2, "Invalid Argument\n", 18);
 	init->next = NULL;
 	pipex->cmd = init;
 	return (1);

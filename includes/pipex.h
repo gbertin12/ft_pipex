@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 13:38:27 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/20 11:58:09 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/09/04 14:05:07 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <sys/wait.h>
 # include <string.h>
 # include <fcntl.h>
+#include <errno.h>
+
 //https://github.com/vfurmane/pipex-tester
 typedef struct t_list
 {

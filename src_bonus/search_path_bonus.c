@@ -6,7 +6,7 @@
 /*   By: gbertin <gbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 14:37:54 by gbertin           #+#    #+#             */
-/*   Updated: 2022/08/10 11:43:38 by gbertin          ###   ########.fr       */
+/*   Updated: 2022/09/04 14:14:23 by gbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*make_path(t_struct *pipex, t_list_bonus *cmd)
 	char	*path;
 
 	i = 0;
+	if (!cmd->args[0])
+		return (NULL);
 	if (pipex->path_absolute == NULL || ft_search_char(cmd->args[0]))
 	{
 		if (access(cmd->args[0], 0) == 0)
